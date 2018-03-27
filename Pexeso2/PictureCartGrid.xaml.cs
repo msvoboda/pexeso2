@@ -26,7 +26,8 @@ namespace Pexeso
         private int[] karty = new int[48]; // pro losovani
         private int[] index = new int[24];// pro losovani
         private int loaded_pict = 0;       
-        private BitmapImage[] images = new BitmapImage[24];    
+        private BitmapImage[] images = new BitmapImage[24];
+        PictureGridViewModel viewModel;
         //
         public event PexesoEventHandler OnLoadedCart = null;
 
@@ -34,7 +35,8 @@ namespace Pexeso
         public PictureCartGrid()
         {
             InitializeComponent();
-            DataContext = new PictureGridViewModel();
+            viewModel = new PictureGridViewModel(grid);
+            DataContext = viewModel;
             nactiKarty();
         }
 
@@ -151,7 +153,7 @@ namespace Pexeso
         void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             PictureCart cart = (PictureCart)sender;
-            cart.ShowCart();
+            viewModel.ShowCard(cart);
         }
 
         private Random rand = new Random();
@@ -166,6 +168,7 @@ namespace Pexeso
             {
                 karty[i] = losovani();
                 grid[i].Karta = karty[i].ToString();
+                grid[i].KartaId = karty[i];
                 //grid[i].loadImage(images_uri[karty[i]]);
                 grid[i].Image.Source = images[karty[i]];
                 grid[i].MouseLeftButtonDown += new MouseButtonEventHandler(PictureCartGrid_MouseLeftButtonDown);
@@ -178,8 +181,7 @@ namespace Pexeso
         void PictureCartGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             PictureCart c = (PictureCart)sender;
-            c.Karta = "X";
-            c.ShowCart();
+            viewModel.ShowCard(c);           
         }
 
         public void LoadedCart(object sender, int cnt)

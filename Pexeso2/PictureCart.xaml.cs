@@ -39,8 +39,12 @@ namespace Pexeso
             {
                 labelKarta.Content = value;                
             }
+        }
 
-
+        public int KartaId
+        {
+            get;
+            set;
         }
 
         public PictureCart()
@@ -64,5 +68,9 @@ namespace Pexeso
             topKarta.Visibility = System.Windows.Visibility.Collapsed;                
         }
 
+        public void HideCart()
+        {
+            topKarta.Visibility = System.Windows.Visibility.Visible;
+        }
     }
 }
