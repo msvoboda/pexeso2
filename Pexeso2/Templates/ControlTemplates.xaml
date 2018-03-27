@@ -1,0 +1,124 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    mc:Ignorable="d"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008">    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ExpressionLight.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- COLOR and BRUSHES RESOURCES-->
+    <SolidColorBrush x:Key="DarkText" Color="Black"/>
+    <SolidColorBrush x:Key="LightText" Color="White"/>
+    <SolidColorBrush x:Key="LightBg" Color="White"/>
+
+    <Color x:Key="GrayColor">Gray</Color>
+
+
+    <LinearGradientBrush x:Key="GridGradientAlfa" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#CC3E3E3E" Offset="0" />
+        <GradientStop Color="#99646464" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BackgroundGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#ABACAE" Offset="0" />
+        <GradientStop Color="#6F7073" Offset="0.32" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush  x:Key="ToolBarBackground" Color="#6F7073"></SolidColorBrush>
+
+    <LinearGradientBrush x:Key="TitleGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#8AFFFFFF" Offset="0" />
+        <GradientStop Color="Transparent" Offset="0.32" />
+    </LinearGradientBrush>
+
+    <FontFamily x:Key="DefaultFont">Myriad Pro</FontFamily>
+
+    <ControlTemplate x:Key="BaseButton" TargetType="Button">
+        <Border CornerRadius="2" Background="{TemplateBinding Background}"
+                                BorderThickness="1">
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+            </ContentPresenter>
+        </Border>
+        <ControlTemplate.Triggers>
+        <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Button.IsMouseOver" Value="true"/>
+                    <Condition Property="Button.IsDefault" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="AliceBlue"></Setter>
+                <Setter Property="BorderBrush" Value="Black"></Setter>
+            </MultiTrigger>
+        
+            <Trigger Property="Button.IsPressed" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 1">
+                            <GradientStop Color="#FF96C8FA" Offset="0"></GradientStop>
+                            <GradientStop Color="#E3E4E5" Offset="0.5"></GradientStop>
+                            <GradientStop Color="#FF96C8FA" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ListBox}">
+        <!--
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        -->
+        <Setter Property="Background" Value="{StaticResource GridGradient}" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="AlternationCount" Value="2" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="Aliased"></Setter>
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Grid>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Background="{StaticResource GridGradient}" SnapsToDevicePixels="True" />
+                        <ScrollViewer Margin="1" Focusable="false" Background="{x:Null}">
+                            <StackPanel Margin="1,1,1,1" IsItemsHost="true" />
+                        </ScrollViewer>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style d:IsControlPart="True" TargetType="{x:Type ListBoxItem}" x:Name="skinlistitem">
+        <Style.Resources>
+            <!--SelectedItem with focus-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource SelectColor}" />
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{StaticResource SelectColor}" Opacity=".7"/>
+        </Style.Resources>
+        <Setter Property="Foreground" Value="{StaticResource LightText}" />
+        <Setter Property="Background" Value="{StaticResource RowBackground1}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Aliased"></Setter>
+        <Style.Triggers>
+            <Trigger Property="Selector.IsSelected" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Background" Value="{StaticResource SelectBrush}"></Setter>
+            </Trigger>
+            <Trigger Property="Selector.IsFocused" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Background" Value="{StaticResource SelectBrush}"></Setter>
+            </Trigger>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Background" Value="{StaticResource RowBackground2}">
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>
