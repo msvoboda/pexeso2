@@ -70,7 +70,10 @@ namespace Pexeso
 
         public void HideCart()
         {
-            topKarta.Visibility = System.Windows.Visibility.Visible;
+            Dispatcher.Invoke(() =>
+            {
+                topKarta.Visibility = System.Windows.Visibility.Visible;
+            });
         }
     }
 }

@@ -87,14 +87,22 @@ namespace Pexeso2.ViewModel
                 if (show1.KartaId == show2.KartaId)
                 {
                     Player1Score++;
+                    show1 = null;
+                    show2 = null;
                 }
                 else
                 {
-                    show1.HideCart();
-                    show2.HideCart();
+                    Task t = new Task(() =>
+                    {
+                        System.Threading.Thread.Sleep(1500);
+                        show1.HideCart();
+                        show2.HideCart();                        
+                        show1 = null;
+                        show2 = null;
+                    });                   
+                    t.Start();
                 }
-                show1 = null;
-                show2 = null;
+
             }
            
         }
