@@ -89,13 +89,15 @@
             <my:PictureCart Grid.Column="5" Grid.Row="6"  Grid.ColumnSpan="1" Grid.RowSpan="1" HorizontalAlignment="Stretch" Margin="1" x:Name="pictureCartF6" VerticalAlignment="Stretch" IsHitTestVisible="True" />
             <my:PictureCart Grid.Column="6" Grid.Row="6"  Grid.ColumnSpan="1" Grid.RowSpan="1" HorizontalAlignment="Stretch" Margin="1" x:Name="pictureCartF7" VerticalAlignment="Stretch" IsHitTestVisible="True" />
             <my:PictureCart Grid.Column="7" Grid.Row="6"  Grid.ColumnSpan="1" Grid.RowSpan="1" HorizontalAlignment="Stretch" Margin="1" x:Name="pictureCartF8" VerticalAlignment="Stretch" IsHitTestVisible="True" />
+            
             <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Hráč1" VerticalAlignment="Top"/>
-            <TextBox Grid.Column="8" HorizontalAlignment="Left" Height="23" Margin="2,22,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Player1}" VerticalAlignment="Top" Width="142"/>
-            <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,44,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Player1Score}" VerticalAlignment="Top"/>
+            <TextBox Grid.Column="8" HorizontalAlignment="Left" Height="23" Margin="2,22,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Player1.Player}" VerticalAlignment="Top" Width="142"/>
+            <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,44,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Player1.Score}" VerticalAlignment="Top"/>
             
             <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,4,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Hráč2" VerticalAlignment="Top"/>
-            <TextBox Grid.Column="8" HorizontalAlignment="Left" Height="23" Margin="2,22,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Player2}" VerticalAlignment="Top" Width="142"/>
-            <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,44,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Player2Score}" VerticalAlignment="Top"/>
+            <TextBox Grid.Column="8" HorizontalAlignment="Left" Height="23" Margin="2,22,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Player2.Player}" VerticalAlignment="Top" Width="142"/>
+            <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,44,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Path=Player2.Score}" VerticalAlignment="Top"/>
+            <TextBox Grid.Column="8" HorizontalAlignment="Right" Height="23" FontSize="18" FontStretch="Medium" Margin="4,2,0,0" TextWrapping="Wrap" Text="{Binding CurrentPlayer.Player}" VerticalAlignment="Top" Width="120"/>
         </Grid>
     </Border>
 </UserControl>

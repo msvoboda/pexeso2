@@ -1,5 +1,6 @@
 ﻿using Pexeso;
 using Pexeso2.Command;
+using Pexeso2.Model;
 using Pexeso2.ModelView;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,24 @@ namespace Pexeso2.ViewModel
 
         public PictureGridViewModel(PictureCart[] gr)
         {
-            Player1 = "...";
-            Player2 = "...";
+            Player1 = new PlayerModel("Hráč1");
+            Player2 = new PlayerModel("Hráč2");
+            CurrentPlayer = Player1;
             grid = gr;
         }
 
-        public string Player1
+        PlayerModel _currentPlayer;
+        public PlayerModel CurrentPlayer
+        {
+            get { return _currentPlayer; }
+            set
+            {
+                _currentPlayer = value;
+                OnPropertyChanged(nameof(CurrentPlayer));
+            }
+        }
+
+        public PlayerModel Player1
         {
             get;
             set;
@@ -39,7 +52,7 @@ namespace Pexeso2.ViewModel
             }
         }
 
-        public string Player2
+        public PlayerModel Player2
         {
             get;
             set;
@@ -81,7 +94,7 @@ namespace Pexeso2.ViewModel
             {
                 show1 = cart;
             }
-            else if (show2 == null)
+            else if (show2 == null && show1 != cart)
             {
                 show2 = cart;
             }
@@ -97,9 +110,11 @@ namespace Pexeso2.ViewModel
                 if (show1.KartaId == show2.KartaId)
                 {
                     winKarta[show1.KartaId] = true;
-                    Player1Score++;
+                    CurrentPlayer.Score++;
                     show1 = null;
                     show2 = null;
+                    CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
+                    OnPropertyChanged(nameof(CurrentPlayer));
                 }
                 else
                 {
@@ -110,6 +125,8 @@ namespace Pexeso2.ViewModel
                         show2.HideCart();                        
                         show1 = null;
                         show2 = null;
+                        CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
+                        OnPropertyChanged(nameof(CurrentPlayer));
                     });                   
                     t.Start();
                 }
