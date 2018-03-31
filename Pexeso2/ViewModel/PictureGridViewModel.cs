@@ -1,5 +1,6 @@
 ﻿using Pexeso;
 using Pexeso2.Command;
+using Pexeso2.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ using System.Windows.Input;
 
 namespace Pexeso2.ViewModel
 {
-    public class PictureGridViewModel
+    public class PictureGridViewModel : ViewModelBase
     {
         PictureCart[] grid;
+        bool[] winKarta = new bool[24];
 
         public PictureGridViewModel(PictureCart[] gr)
         {
@@ -26,10 +28,15 @@ namespace Pexeso2.ViewModel
             set;
         }
 
+        private int _score1;
         public int Player1Score
         {
-            get;
-            set;
+            get { return _score1; }
+            set
+            {
+                _score1 = value;
+                OnPropertyChanged(nameof(Player1Score));
+            }
         }
 
         public string Player2
@@ -67,6 +74,9 @@ namespace Pexeso2.ViewModel
         PictureCart show2 = null;
         public void ShowCard(PictureCart cart)
         {
+            if (winKarta[cart.KartaId] == true)
+                return;
+
             if (show1 == null)
             {
                 show1 = cart;
@@ -86,6 +96,7 @@ namespace Pexeso2.ViewModel
             {
                 if (show1.KartaId == show2.KartaId)
                 {
+                    winKarta[show1.KartaId] = true;
                     Player1Score++;
                     show1 = null;
                     show2 = null;

@@ -153,7 +153,7 @@ namespace Pexeso
         void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             PictureCart cart = (PictureCart)sender;
-            viewModel.ShowCard(cart);
+             viewModel.ShowCard(cart);
         }
 
         private Random rand = new Random();
