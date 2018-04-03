@@ -55,8 +55,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\BaseCommand.cs" />
-    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Model\PlayerModel.cs" />
+    <Compile Include="Model\TemplateModel.cs" />
     <Compile Include="OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -67,7 +68,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\ControlTemplates.xaml">
+    <Page Include="Templates\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Templates\Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

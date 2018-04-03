@@ -4,10 +4,13 @@ using Pexeso2.Model;
 using Pexeso2.ModelView;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Pexeso2.ViewModel
 {
@@ -15,6 +18,9 @@ namespace Pexeso2.ViewModel
     {
         PictureCart[] grid;
         bool[] winKarta = new bool[24];
+        private int[] karty = new int[48]; // pro losovani
+        private int[] index = new int[24];// pro losovani
+        private BitmapImage[] images = new BitmapImage[24];
 
         public PictureGridViewModel(PictureCart[] gr)
         {
@@ -23,6 +29,41 @@ namespace Pexeso2.ViewModel
             CurrentPlayer = Player1;
             grid = gr;
         }
+
+        public TemplateModel SelectTemplate
+        {
+            get;
+            set;
+        }
+
+        List<TemplateModel> templateModels;
+        public List<TemplateModel> Templates
+        {
+            get
+            {
+                if (templateModels == null)
+                {
+                    templateModels = new List<TemplateModel>();
+
+                    TemplateModel template = new TemplateModel();
+                    template.Title = "Zlín";
+                    template.path = "images";
+                    templateModels.Add(template);
+
+                    template = new TemplateModel();
+                    template.Title = "Minecraft";
+                    template.path = "minecraft";
+                    templateModels.Add(template);
+
+                    template = new TemplateModel();
+                    template.Title = "Auta";
+                    template.path = "cars";
+                    templateModels.Add(template);
+                }
+                return templateModels;
+            }
+        }
+
 
         PlayerModel _currentPlayer;
         public PlayerModel CurrentPlayer
@@ -70,7 +111,7 @@ namespace Pexeso2.ViewModel
             get
             {
                 if (_showCommand == null)
-                    _showCommand = new RelayCommand(param => ShowView());
+                    _showCommand = new DelegateCommand(param => ShowView());
 
                 return _showCommand;
             }
@@ -122,17 +163,111 @@ namespace Pexeso2.ViewModel
                     {
                         System.Threading.Thread.Sleep(1500);
                         show1.HideCart();
-                        show2.HideCart();                        
+                        show2.HideCart();
                         show1 = null;
                         show2 = null;
                         CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
                         OnPropertyChanged(nameof(CurrentPlayer));
-                    });                   
+                    });
                     t.Start();
                 }
 
             }
-           
+        }
+
+        public void nactiKarty(string cards, bool losovani=true)
+        {
+            FileInfo info = new FileInfo(Assembly.GetExecutingAssembly().Location);
+
+            for (int i = 0; i < 24; i++)
+            {
+                try
+                {
+                    string path = info.Directory.FullName + "\\" + cards + "\\img" + (i + 1).ToString() + ".jpg";
+                    if (!File.Exists(path))
+                    {
+                        path = info.Directory.FullName + "\\" + cards + "\\img" + (i + 1).ToString() + ".png";
+                    }
+                    BitmapImage src = new BitmapImage();
+                    src.BeginInit();
+                    src.UriSource = new Uri(path, UriKind.Relative);
+                    src.CacheOption = BitmapCacheOption.OnLoad;
+                    src.EndInit();
+                    images[i] = src;
+                }
+                catch (Exception e)
+                {
+                    int c = 0;
+                }
+
+            }
+
+            if (losovani)
+            {
+                Losovani();
+            }
+            else
+            {
+                for (int i = 0; i < 48; i++)
+                {
+                    grid[i].Image.Source = images[karty[i]];
+                }
+            }
+        }
+
+        private Random rand = new Random();
+        public void Losovani()
+        {
+            foreach (int i in karty)
+                karty[i] = 0;
+            foreach (int j in index)
+                index[j] = 0;
+
+            for (int i = 0; i < 48; i++)
+            {
+                karty[i] = losovani();
+                grid[i].Karta = karty[i].ToString();
+                grid[i].KartaId = karty[i];
+                //grid[i].loadImage(images_uri[karty[i]]);
+                grid[i].Image.Source = images[karty[i]];
+                Console.WriteLine(i.ToString() + "," + karty[i]);
+
+            }
+        }
+
+        private int losovani()
+        {
+            int losovane;
+
+            losovane = rand.Next(24);
+            if (index[losovane] < 2)
+                index[losovane]++;
+            else
+                losovane = losovani();
+
+            return losovane;
+        }
+
+
+        private ICommand _loadCommand;
+        public ICommand LoadCommand
+        {
+            get
+            {
+                if (_loadCommand == null)
+                    _loadCommand = new DelegateCommand(param => LoadImages());
+
+                return _loadCommand;
+            }
+        }
+
+        public void LoadImages()
+        {  
+            if (SelectTemplate != null)
+            {
+                nactiKarty(SelectTemplate.path, false);
+            }
+            
         }
     }
 }

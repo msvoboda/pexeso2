@@ -7,6 +7,27 @@
         mc:Ignorable="d"
         Title="OptionWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.Resources>
+            <ResourceDictionary Source="/Templates/ControlTemplates.xaml" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="2,10,0,0" TextWrapping="Wrap" Text="Výběr karet " VerticalAlignment="Top" FontWeight="Bold"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectTemplate}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="Načíst karty" Command="{Binding LoadCommand}" Grid.Row="1" Grid.Column="1" Width="100" Height="32"></Button>
     </Grid>
 </Window>

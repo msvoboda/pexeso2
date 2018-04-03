@@ -23,10 +23,8 @@ namespace Pexeso
     {
         private Image m_deck = null;
         private PictureCart[] grid = new PictureCart[48];
-        private int[] karty = new int[48]; // pro losovani
-        private int[] index = new int[24];// pro losovani
-        private int loaded_pict = 0;       
-        private BitmapImage[] images = new BitmapImage[24];
+ 
+        private int loaded_pict = 0;              
         PictureGridViewModel viewModel;
         //
         public event PexesoEventHandler OnLoadedCart = null;
@@ -37,36 +35,8 @@ namespace Pexeso
             InitializeComponent();
             viewModel = new PictureGridViewModel(grid);
             DataContext = viewModel;
-            nactiKarty();
-        }
-
-        public void nactiKarty()
-        {
             Init();
-            FileInfo info = new FileInfo(Assembly.GetExecutingAssembly().Location);
-
-            for (int i = 0; i < 24; i++)
-            {
-                try
-                {
-                    string path = info.Directory.FullName+"/minecraft/MI"+ (i + 1).ToString()+".jpg";
-                    if (!File.Exists(path)) {
-                        path = info.Directory.FullName + "/minecraft/MI" + (i + 1).ToString() + ".png";
-                    }
-                    BitmapImage src = new BitmapImage();
-                    src.BeginInit();
-                    src.UriSource = new Uri(path, UriKind.Relative);
-                    src.CacheOption = BitmapCacheOption.OnLoad;
-                    src.EndInit();
-                    images[i] = src;
-                }
-                catch (Exception e)
-                {
-                    int c = 0;
-                }
-
-            }
-            Losovani();
+            viewModel.nactiKarty("minecraft");
         }
 
         private void Init()
@@ -129,6 +99,7 @@ namespace Pexeso
             for (int i = 0; i < 48; i++)
             {
                 grid[i].Image.MouseEnter += new MouseEventHandler(Image_MouseEnter);
+                grid[i].MouseLeftButtonDown += new MouseButtonEventHandler(PictureCartGrid_MouseLeftButtonDown);
                 //grid[i].Image.ImageOpened += new EventHandler<RoutedEventArgs>(Image_ImageOpened);
             }
 
@@ -156,28 +127,6 @@ namespace Pexeso
              viewModel.ShowCard(cart);
         }
 
-        private Random rand = new Random();
-        public void Losovani()
-        {
-            foreach (int i in karty)
-                karty[i] = 0;
-            foreach (int j in index)
-                index[j] = 0;
-
-            for (int i = 0; i < 48; i++)
-            {
-                karty[i] = losovani();
-                grid[i].Karta = karty[i].ToString();
-                grid[i].KartaId = karty[i];
-                //grid[i].loadImage(images_uri[karty[i]]);
-                grid[i].Image.Source = images[karty[i]];
-                grid[i].MouseLeftButtonDown += new MouseButtonEventHandler(PictureCartGrid_MouseLeftButtonDown);
-                Console.WriteLine(i.ToString() + "," + karty[i]);
-
-            }
-            
-        }
-
         void PictureCartGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             PictureCart c = (PictureCart)sender;
@@ -193,18 +142,7 @@ namespace Pexeso
 
         }
 
-        private int losovani()
-        {
-            int losovane;
-            
-            losovane = rand.Next(24);
-            if (index[losovane] < 2)
-                index[losovane]++;
-            else
-                losovane = losovani();
 
-            return losovane;
-        }
 
         public string GetKartu(int idx)
         {

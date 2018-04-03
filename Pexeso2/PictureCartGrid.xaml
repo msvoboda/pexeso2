@@ -97,7 +97,7 @@
             <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,4,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Hráč2" VerticalAlignment="Top"/>
             <TextBox Grid.Column="8" HorizontalAlignment="Left" Height="23" Margin="2,22,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Player2.Player}" VerticalAlignment="Top" Width="142"/>
             <TextBlock Grid.Column="8" HorizontalAlignment="Left" FontSize="16" Margin="2,44,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Path=Player2.Score}" VerticalAlignment="Top"/>
-            <TextBox Grid.Column="8" HorizontalAlignment="Right" Height="23" FontSize="18" FontStretch="Medium" Margin="4,2,0,0" TextWrapping="Wrap" Text="{Binding CurrentPlayer.Player}" VerticalAlignment="Top" Width="120"/>
+            <TextBox Grid.Column="8" HorizontalAlignment="Right" Foreground="{StaticResource RedText}" TextAlignment="Right" Height="28" FontSize="21" FontStretch="ExtraExpanded" Margin="4,2,0,0" TextWrapping="Wrap" Text="{Binding CurrentPlayer.Player}" VerticalAlignment="Top"/>
         </Grid>
     </Border>
 </UserControl>

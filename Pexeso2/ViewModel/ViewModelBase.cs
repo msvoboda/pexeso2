@@ -8,20 +8,9 @@ namespace Pexeso2.ModelView
     /// Zakladni trida pro pattern ViewModel
     /// Obsahuje spolecne DiplayName
     /// Vyvolava zmeny na Property
-    /// prevzate z MSDN ... MVVM
-    /// http://msdn.microsoft.com/en-us/magazine/dd419663.aspx
-    /// http://dajbych.net/model-view-viewmodel
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
-    {
-        #region DisplayName
-        /// <summary>
-        /// Jmeno ModelView ... pouziva se k zobrazovani
-        /// pokud neni nastavena je to null;
-        /// </summary>
-        public virtual string DisplayName { get; protected set; }
-        #endregion // DisplayName
-
+    {    
         #region Debugging
         /// <summary>
         /// Test na existenci property, pokud nexistuje zavyjimkuj
