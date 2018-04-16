@@ -8,7 +8,7 @@
         Title="OptionWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
-            <ResourceDictionary Source="/Templates/ControlTemplates.xaml" />
+            <ResourceDictionary Source="/Templates/Controls.xaml" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="28"></RowDefinition>
@@ -22,8 +22,13 @@
         <ListBox Grid.Row="1" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectTemplate}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    <Grid Height="48">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"></ColumnDefinition>
+                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding image}" Stretch="Fill" ></Image>
+                        <TextBlock Text="{Binding Title}" Grid.Column="1" Margin="6,0,0,0" VerticalAlignment="Center" FontSize="16" FontStyle="Normal" FontStretch="Medium"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

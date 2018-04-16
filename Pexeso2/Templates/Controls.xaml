@@ -24,8 +24,8 @@
     <Color x:Key="GrayColor">Gray</Color>
 
     <LinearGradientBrush x:Key="GridGradientAlfa" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#CC3E3E3E" Offset="0" />
-        <GradientStop Color="#99646464" Offset="1" />
+        <GradientStop Color="#CCF1F0F0" Offset="0" />
+        <GradientStop Color="#99FDFDFD" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="BackgroundGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -105,22 +105,22 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource SelectColor}" />
             <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{StaticResource SelectColor}" Opacity=".7"/>
         </Style.Resources>
-        <Setter Property="Foreground" Value="{StaticResource LightText}" />
+        <Setter Property="Foreground" Value="{StaticResource DarkText}" />
         <Setter Property="Background" Value="{StaticResource RowBackground1}" />
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
         <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
         <Setter Property="TextOptions.TextRenderingMode" Value="Aliased"></Setter>
         <Style.Triggers>
             <Trigger Property="Selector.IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource DarkText}"></Setter>
                 <Setter Property="Background" Value="{StaticResource SelectBrush}"></Setter>
             </Trigger>
             <Trigger Property="Selector.IsFocused" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource DarkText}"></Setter>
                 <Setter Property="Background" Value="{StaticResource SelectBrush}"></Setter>
             </Trigger>
             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                <Setter Property="Foreground" Value="{StaticResource LightText}"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource DarkText}"></Setter>
                 <Setter Property="Background" Value="{StaticResource RowBackground2}">
                 </Setter>
             </Trigger>

@@ -10,9 +10,9 @@
     <!--
     <SolidColorBrush x:Key="LightBrush" Color="#6F7073" />
     -->
-    <SolidColorBrush x:Key="RowBackground" Color="#FF494949"/>
-    <SolidColorBrush x:Key="RowBackground1" Color="#804B4B4B"/>
-    <SolidColorBrush x:Key="RowBackground2" Color="#9B404040"/>
+    <SolidColorBrush x:Key="RowBackground" Color="Transparent"/>
+    <SolidColorBrush x:Key="RowBackground1" Color="Transparent"/>
+    <SolidColorBrush x:Key="RowBackground2" Color="Transparent"/>
     <SolidColorBrush x:Key="GridColumnHeader" Color="#3D3A39"/>
     <SolidColorBrush x:Key="GridColumnHeaderHov" Color="#686362"/>
     <SolidColorBrush x:Key="GridRowBrush" Color="Gray"></SolidColorBrush>

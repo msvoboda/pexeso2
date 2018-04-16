@@ -6,7 +6,7 @@
     mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:Pexeso">
     <UserControl.Resources>
-        <ResourceDictionary Source="/Templates/ControlTemplates.xaml" />
+        <ResourceDictionary Source="/Templates/Controls.xaml" />
     </UserControl.Resources>
     <Border>
         <Grid x:Name="LayoutRoot" Background="White" Margin="8">
@@ -31,7 +31,7 @@
                 <RowDefinition Height="100*" />
             </Grid.RowDefinitions>
 
-            <Button Template="{StaticResource BaseButton}" Content="Nová hra" Grid.ColumnSpan="2" Margin="2"></Button>
+            <Button Template="{StaticResource BaseButton}" Content="Nová hra" Command="{Binding CleanCommand}" Grid.ColumnSpan="2" Margin="2"></Button>
             <Button Template="{StaticResource BaseButton}" Content="Nastavení" Command="{Binding ShowCommand}" Grid.Column="2" Grid.ColumnSpan="3" Margin="6.2,2,76,2"></Button>
 
 

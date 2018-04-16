@@ -48,16 +48,45 @@ namespace Pexeso2.ViewModel
                     TemplateModel template = new TemplateModel();
                     template.Title = "Zlín";
                     template.path = "images";
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("./images/img1.jpg", UriKind.Relative);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    template.image = bitmap;
                     templateModels.Add(template);
 
                     template = new TemplateModel();
                     template.Title = "Minecraft";
                     template.path = "minecraft";
+                    bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("./minecraft/img2.jpg", UriKind.Relative);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    template.image = bitmap;
                     templateModels.Add(template);
 
                     template = new TemplateModel();
                     template.Title = "Auta";
                     template.path = "cars";
+                    bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("./cars/img1.png", UriKind.Relative);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    template.image = bitmap;                   
+                    templateModels.Add(template);
+
+                    template = new TemplateModel();
+                    template.Title = "Lego friends";
+                    template.path = "friends";
+                    bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("./friends/img1.jpg", UriKind.Relative);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    template.image = bitmap;
                     templateModels.Add(template);
                 }
                 return templateModels;
@@ -122,6 +151,37 @@ namespace Pexeso2.ViewModel
             OptionWindow option = new OptionWindow();
             option.DataContext = this;
             option.ShowDialog();
+        }
+
+        private ICommand _cleanCommand;
+        public ICommand CleanCommand
+        {
+            get
+            {
+                if (_cleanCommand == null)
+                    _cleanCommand = new DelegateCommand(param => CleanGame());
+
+                return _cleanCommand;
+            }
+        }
+
+        public void CleanGame()
+        {
+            Player1.Score = 0;
+            Player2.Score = 0;
+
+            for (int i = 0; i < 24; i++)
+            {
+                winKarta[i] = false;
+            }
+
+            List<PictureCart> list = grid.ToList();
+            foreach(PictureCart c in list)
+            {
+                c.HideCart();
+            }
+
+            Losovani();
         }
 
         PictureCart show1 = null;
@@ -190,14 +250,14 @@ namespace Pexeso2.ViewModel
                     }
                     BitmapImage src = new BitmapImage();
                     src.BeginInit();
-                    src.UriSource = new Uri(path, UriKind.Relative);
+                    src.UriSource = new Uri(path, UriKind.RelativeOrAbsolute);
                     src.CacheOption = BitmapCacheOption.OnLoad;
                     src.EndInit();
                     images[i] = src;
                 }
                 catch (Exception e)
                 {
-                    int c = 0;
+                    
                 }
 
             }
@@ -218,10 +278,15 @@ namespace Pexeso2.ViewModel
         private Random rand = new Random();
         public void Losovani()
         {
-            foreach (int i in karty)
+            for(int i = 0; i < 48; i++)
+            {
                 karty[i] = 0;
-            foreach (int j in index)
+            }
+
+            for (int j = 0; j < 24; j++)
+            {
                 index[j] = 0;
+            }
 
             for (int i = 0; i < 48; i++)
             {
@@ -262,12 +327,15 @@ namespace Pexeso2.ViewModel
         }
 
         public void LoadImages()
-        {  
+        {
+            CleanGame();
+
             if (SelectTemplate != null)
             {
                 nactiKarty(SelectTemplate.path, false);
             }
             
+       
         }
     }
 }
